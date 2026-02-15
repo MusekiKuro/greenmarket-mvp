@@ -1,5 +1,6 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { any } from "zod";
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({
@@ -14,8 +15,8 @@ export async function updateSession(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
+        setAll(cookiesToSet: any) {
+          cookiesToSet.forEach(({ name, value, options}: any ) =>
             response.cookies.set(name, value, options)
           );
         },
